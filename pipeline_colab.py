@@ -16,7 +16,7 @@ HARDCODED_PROCESSING_DIR = "/content/drive/Shareddrives/FA Ops Europe: Rate Main
 # ==============================================================================
 
 
-SCRIPTS_DIR_COLAB = "/content/transformation-fedex-aptiv-2"
+SCRIPTS_DIR_COLAB = "/content/transformation-fedex-aptiv"
 
 
 def setup_colab():
@@ -66,7 +66,7 @@ def main():
         parse_international_accessorials, parse_domestic_accessorials,
         add_accessorial_sheet,
     )
-    from format_xlsx import format_all_output
+    from format_xlsx import format_output_files
     from openpyxl import load_workbook
 
     # --- Select file ---
@@ -412,9 +412,13 @@ def main():
                     print(f"  Added 'Acc {country}' ({len(rows)} entries)")
                 wb.save(target_xlsx)
 
-    # --- Format output ---
+    # --- Format only the xlsx created for this input ---
+    target_xlsx = OUTPUT_DIR / f"{base_name}_rates.xlsx"
     print("\n--- Formatting output ---")
-    format_all_output(OUTPUT_DIR)
+    if target_xlsx.exists():
+        format_output_files([target_xlsx])
+    else:
+        print("  No xlsx output to format")
 
     print("\n=== Pipeline complete! ===")
     print(f"Output saved to: {OUTPUT_DIR}")
