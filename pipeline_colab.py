@@ -16,7 +16,7 @@ HARDCODED_PROCESSING_DIR = "/content/drive/Shareddrives/FA Ops Europe: Rate Main
 # ==============================================================================
 
 
-SCRIPTS_DIR_COLAB = "/content/transformation-fedex-aptiv"
+SCRIPTS_DIR_COLAB = "/content/transformation-fedex-aptiv-2"
 
 
 def setup_colab():
