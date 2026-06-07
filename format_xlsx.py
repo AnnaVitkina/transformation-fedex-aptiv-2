@@ -181,10 +181,18 @@ def format_workbook(xlsx_path: Path):
     wb.save(xlsx_path)
 
 
-def format_all_output(output_dir: Path):
-    """Format all XLSX files in the output directory."""
-    xlsx_files = list(output_dir.glob("*.xlsx"))
-    for xlsx_path in xlsx_files:
+def format_output_files(xlsx_paths: list[Path]):
+    """Format only the specified XLSX files."""
+    formatted = 0
+    for xlsx_path in xlsx_paths:
+        if not xlsx_path.exists():
+            continue
         print(f"  Formatting: {xlsx_path.name}")
         format_workbook(xlsx_path)
-    print(f"  Formatted {len(xlsx_files)} file(s)")
+        formatted += 1
+    print(f"  Formatted {formatted} file(s)")
+
+
+def format_all_output(output_dir: Path):
+    """Format all XLSX files in the output directory."""
+    format_output_files(list(output_dir.glob("*.xlsx")))
